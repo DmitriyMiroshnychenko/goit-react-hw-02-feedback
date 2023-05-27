@@ -1,0 +1,10 @@
+section:not(:last-child) {
+    margin-bottom: 30px;
+  }
+  
+  .sectionTitle {
+    margin-bottom: 16px;
+    color: #240046;
+    font-family: 'Roboto', sans-serif;
+  }
+  
