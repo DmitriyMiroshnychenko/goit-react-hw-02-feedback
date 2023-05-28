@@ -19,25 +19,23 @@ export class App extends Component {
 
       countTotalFeedback = () => {
         const { good, neutral, bad } = this.state;
-        let totalFeedback = good + neutral + bad;
-        return totalFeedback;
+       //return good + neutral + bad;
+       return (Object.values(this.state).reduce((acc, value) => acc + value, 0))
       };
 
       countPositiveFeedbackPercentage = () => {
-        if (this.countTotalFeedback()) {
+       const total = this.countTotalFeedback(); {
           const { good, neutral, bad } = this.state;
           const totalFeedback = good + neutral + bad;
           const goodFeedbackPercantage = Math.round((100 * good) / totalFeedback);
-          return goodFeedbackPercantage;
+          return Math.round((100 * good) / total);
         }
-    
-        return 0;
-      };
+      }
 
       render() {
         const { good, neutral, bad } = this.state;
-        const totalFeedback = this.countTotalFeedback;
-        const positiveFeedbackPercentage = this.countPositiveFeedbackPercentage;
+        const totalFeedback = this.countTotalFeedback();
+        const positiveFeedbackPercentage = this.countPositiveFeedbackPercentage();
      
         return (
           <div>
@@ -46,13 +44,13 @@ export class App extends Component {
             </Section>
     
             <Section title={'Statistics 📈'}>
-              {totalFeedback() > 0 ? (
+              {totalFeedback > 0 ? (
                 <Statistics
                   good={good}
                   neutral={neutral}
                   bad={bad}
-                  total={totalFeedback()}
-                  positivePercentage={positiveFeedbackPercentage()}
+                  total={totalFeedback}
+                  positivePercentage={positiveFeedbackPercentage}
                 />
               ) : (
                 <Notification message="*There is no feedback*" />
